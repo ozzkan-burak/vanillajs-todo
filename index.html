@@ -29,9 +29,62 @@
         <h3>Listeye ekle</h3>
         <form>
           <h4>Unutmata!</h4>
+          <input type="text" class="todo" id="todo" placeholder="Yapılacak iş" />
+          <h4>Kategori seçin</h4>
+          <div class="options">
+            <label>
+              <input type="radio"
+                id="option1"
+                name="category"
+                value="business"
+                />
+                <span class="buble business"></span>
+                <div>İş</div>
+            </label>
+            <label>
+              <input type="radio"
+                id="option1"
+                name="category"
+                value="Kişisel"
+                />
+                <span class="buble Kişisel"></span>
+                <div>Kişisel</div>
+            </label>
+          </div>
         </form>
       </secton>
+      <section>
+        <h3>Listem</h3>
+        <div class="list" id="todo-list">
+          <div class="todo-item">
+            <label>
+              <input type="checkbox" class="checkbox" />
+              <span class="buble business"></span>
+            </label>
+            <div class="todo-content">
+              <input type="text" value="Kod yaz" readonly/>
+            </div>
+            <div class="actions">
+              <button class="edit">Düzenle</button>
+              <button class="delete">Sil</button>
+            </div>
+          </div>
 
+          <div class="todo-item">
+            <label>
+              <input type="checkbox" class="checkbox" />
+              <span class="buble personel"></span>
+            </label>
+            <div class="todo-content">
+              <input type="text" value="Markete uğra" readonly/>
+            </div>
+            <div class="actions">
+              <button class="edit">Düzenle</button>
+              <button class="delete">Sil</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
     <script src="app.js" async defer></script>
   </body>
