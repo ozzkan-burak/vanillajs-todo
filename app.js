@@ -1,36 +1,41 @@
-window.addEventListener('load', ()=> {
-  todos = JSON.parse(localStorage.getItem('todos')) || [];
-  const nameInput = document.querySelector('#name');
-  const newTodoForm = document.querySelector("#new-todo-form");
+window.addEventListener('load', () => {
+	todos = JSON.parse(localStorage.getItem('todos')) || [];
+	const nameInput = document.querySelector('#name');
+	const newTodoForm = document.querySelector('#new-todo-form');
 
-  const userName = localStorage.getItem('userName') || '';
+	const username = localStorage.getItem('username') || '';
 
-  nameInput.value = userName;
+	nameInput.value = username;
 
-  nameInput.addEventListener('change', (e)=> {
-    localStorage.setItem('userName', e.target.value);
-  });
+	nameInput.addEventListener('change', (e) => {
+		localStorage.setItem('username', e.target.value);
+	})
 
-  newTodoForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const todo = {
-      content: e.target.elements.content.value,
-      category: e.target.elements.category.value,
-      done: false,
-      createdAt: new Date().getTime()
-    };
-    todos.push(todo);
+	newTodoForm.addEventListener('submit', e => {
+		e.preventDefault();
 
-    localStorage.setItem('todos', JSON.stringify(todos));
+		const todo = {
+			content: e.target.elements.content.value,
+			category: e.target.elements.category.value,
+			done: false,
+			createdAt: new Date().getTime()
+		}
 
-    e.target.reset();
+		todos.push(todo);
 
-    DisplayTodos();
-  });
-});
+		localStorage.setItem('todos', JSON.stringify(todos));
 
-function DisplayTodos() {
-  const todoList = document.querySelector('#todo-list');
+		// Reset the form
+		e.target.reset();
+
+		DisplayTodos()
+	})
+
+	DisplayTodos()
+})
+
+function DisplayTodos () {
+	const todoList = document.querySelector('#todo-list');
 	todoList.innerHTML = "";
 
 	todos.forEach(todo => {
@@ -48,7 +53,7 @@ function DisplayTodos() {
 		input.type = 'checkbox';
 		input.checked = todo.done;
 		span.classList.add('bubble');
-		if (todo.category == 'personal') {
+		if (todo.category == 'kişisel') {
 			span.classList.add('personal');
 		} else {
 			span.classList.add('business');
@@ -90,6 +95,24 @@ function DisplayTodos() {
 
 		})
 
-  });
+		edit.addEventListener('click', (e) => {
+			const input = content.querySelector('input');
+			input.removeAttribute('readonly');
+			input.focus();
+			input.addEventListener('blur', (e) => {
+				input.setAttribute('readonly', true);
+				todo.content = e.target.value;
+				localStorage.setItem('todos', JSON.stringify(todos));
+				DisplayTodos()
 
+			})
+		})
+
+		deleteButton.addEventListener('click', (e) => {
+			todos = todos.filter(t => t != todo);
+			localStorage.setItem('todos', JSON.stringify(todos));
+			DisplayTodos()
+		})
+
+	})
 }
